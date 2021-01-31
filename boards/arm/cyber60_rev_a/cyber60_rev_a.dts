@@ -8,7 +8,7 @@
 #include <nordic/nrf52840_qiaa.dtsi>
 #include <dt-bindings/zmk/matrix-transform.h>
 / {
-	model = "CYBER60_A";
+	model = "CYBER60_REV_A";
 	compatible = "cyber60", "Rev A";
 
 	chosen {
@@ -30,18 +30,46 @@
 	
 	leds {
 		compatible = "gpio-leds";
-		red_led: led_3 {
+		led_1: led_red {
 			gpios = <&gpio1 13 GPIO_ACTIVE_LOW>;
 			label = "Red LED";
 		};
-		green_led: led_2 {
+		led_0: led_green {
 			gpios = <&gpio0 28 GPIO_ACTIVE_LOW>;
 			label = "Green LED";
 		};
-		blue_led: led_1 { // also broken out on header con307 on cyber60-2 Rev A1 for debug
+		led_2: led_blue { // also broken out on header con307 on cyber60-2 Rev A1 for debug
 			gpios = <&gpio0 5 GPIO_ACTIVE_LOW>;
 			label = "Blue LED";
 		};
+	};
+		pwmleds {
+		compatible = "pwm-leds";
+		pwm_led_0: pwm_led_green {
+			pwms = <&pwm0 28>;
+			label = "Green PWM LED";
+			status = "okay";
+		};
+		pwm_led_1: pwm_led_red {
+			pwms = <&pwm1 13>;
+			label = "Red PWM LED";
+			status = "okay";
+		};
+		pwm_led_2: pwm_led_blue {
+			pwms = <&pwm0 5>;
+			label = "Blue PWM LED";
+			status = "okay";
+		};
+	};
+
+	/* These aliases are provided for compatibility with samples */
+	aliases {
+		ledgreen = &led_0;
+		ledred   = &led_1;
+		ledblue  = &led_2;
+		pwmledgreen = &pwm_led_0;
+		pwmledred = &pwm_led_1;
+		pwmledblue = &pwm_led_2;
 	};
 
 	default_transform: keymap_transform_0 {

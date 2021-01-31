@@ -3,7 +3,6 @@
 # Copyright (c) 2020 Stefan Sundin (4pplet)
 # SPDX-License-Identifier: MIT
 
-config BOARD_CYBER60_A
-	bool "cyber60 Rev A"
+config BOARD_CYBER60_REV_B
+	bool "cyber60 Rev B"
 	depends on SOC_NRF52840_QIAA
-
