@@ -6,5 +6,5 @@ ZMK-config for 4pplet keyboards. Currently supported keyboards:
 https://github.com/4pplet/cyber60
 
 # Status:
-- Revision A: RGB functionality is not implemented.
-- Revision B is still untested and in prototyping phase.
+- Revision A: RGB functionality for capslock LED is not implemented in ZMK, but tested.
+- Revision B: RGB functionality for capslock LED and buzzer is not implemented in ZMK, but tested.
