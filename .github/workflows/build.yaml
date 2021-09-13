@@ -50,7 +50,7 @@ jobs:
         uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
         id: west-build-cyber60_rev_a
         with:
-          args: 'build "-s zmk/app -b cyber60_rev_a -- -DZMK_CONFIG=/github/workspace/config"'
+          args: 'build "-s zmk/app -p -b cyber60_rev_a -- -DZMK_CONFIG=/github/workspace/config"'
       - name: Archive (cyber60_rev_a)
         uses: actions/upload-artifact@v2
         with:
@@ -60,7 +60,7 @@ jobs:
         uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
         id: west-build-cyber60_rev_b
         with:
-          args: 'build "-s zmk/app -b cyber60_rev_b -- -DZMK_CONFIG=/github/workspace/config"'
+          args: 'build "-s zmk/app -p -b cyber60_rev_b -- -DZMK_CONFIG=/github/workspace/config"'
       - name: Archive (cyber60_rev_b)
         uses: actions/upload-artifact@v2
         with:
