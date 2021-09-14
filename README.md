@@ -1,4 +1,4 @@
-# zmk-config
+# zmk-config-4pplet
 
 ZMK-config for 4pplet keyboards. Currently supported keyboards:
 
