@@ -66,3 +66,13 @@ jobs:
         with:
           name: cyber60_rev_b
           path: build/zephyr/zmk.uf2
+      - name: West Build (cyber60_rev_c)
+        uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
+        id: west-build-cyber60_rev_c
+        with:
+          args: 'build "-s zmk/app -p -b cyber60_rev_c -- -DZMK_CONFIG=/github/workspace/config"'
+      - name: Archive (cyber60_rev_c)
+        uses: actions/upload-artifact@v2
+        with:
+          name: cyber60_rev_c
+          path: build/zephyr/zmk.uf2
