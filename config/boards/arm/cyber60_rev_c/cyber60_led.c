@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 The ZMK Contributors
+ * Copyright (c) 2021 The ZMK Contributors
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -65,12 +65,12 @@ static const size_t led_size = sizeof(leds)/sizeof(leds[0]);
 
 void reset_leds()
 {
-    for (int i = 0; i < led_size; i++) {
-        const struct device *dev = device_get_binding(leds[i].name);
+    for (int index = 0; index < led_size; index++) {
+        const struct device *dev = device_get_binding(leds[index].name);
         if (dev == NULL) {
             return;
         }
-        gpio_pin_set(dev, leds[i].pin, false);
+        gpio_pin_set(dev, leds[index].pin, false);
     }
 }
 
@@ -83,6 +83,25 @@ void set_led(size_t index)
     gpio_pin_set(dev, leds[index].pin, true);
 }
 
+static int pwr_led_init(const struct device *dev) {
+    int ret;
+
+    for (int index=0; index < sizeof(leds)/sizeof(leds[0]); index++) {
+        dev = device_get_binding(leds[index].name);
+        if (dev == NULL) {
+            return -EIO;
+        }
+
+        ret = gpio_pin_configure(dev, leds[index].pin, GPIO_OUTPUT | leds[index].flags);
+        if (ret < 0) {
+            return -EIO;
+        }
+        // set to false so no constant battery drain, just testing for now
+        gpio_pin_set(dev, leds[index].pin, false);
+    }
+
+    return 0;
+}
 
 void led_work_handler(struct k_work *work) {
     reset_leds();
@@ -99,39 +118,46 @@ K_TIMER_DEFINE(led_timer, led_expiry_function, NULL);
 
 int led_listener(const zmk_event_t *eh)
 {
-    uint8_t index = zmk_ble_active_profile_index();
+    const struct zmk_ble_active_profile_changed *profile_ev = NULL;
+    // uint8_t index = zmk_ble_active_profile_index();
+
+    if ((profile_ev = as_zmk_ble_active_profile_changed(eh)) == NULL) {
+        return ZMK_EV_EVENT_BUBBLE;
+    }
+    LOG_WRN("Active profile index:%d", profile_ev->index);
 
     k_timer_stop(&led_timer);
 
     reset_leds();
-    switch(index) {
-    case 0:
-        set_led(RED);
-        break;
-    case 1:
-        set_led(GREEN);
-        break;
-    case 2:
-        set_led(BLUE);
-        break;
-    case 3:
-        set_led(RED);
-        set_led(GREEN);
-        break;
-    case 4:
-        set_led(BLUE);
-        set_led(GREEN);
-        break;
-    default:
-        break;
+    switch(profile_ev->index) {
+        case 0:
+            set_led(RED);
+            break;
+        case 1:
+            set_led(GREEN);
+            break;
+        case 2:
+            set_led(BLUE);
+            break;
+        case 3:
+            set_led(RED);
+            set_led(GREEN);
+            break;
+        case 4:
+            set_led(BLUE);
+            set_led(GREEN);
+            break;
+        default:
+            break;
     }
-    k_timer_start(&led_timer, K_SECONDS(3), K_SECONDS(3));
+    k_timer_start(&led_timer, K_SECONDS(3), K_NO_WAIT);
 
     return ZMK_EV_EVENT_BUBBLE;
 }
 
 ZMK_LISTENER(led_output_status, led_listener)
 #if defined(CONFIG_ZMK_BLE)
-ZMK_SUBSCRIPTION(led_output_status, zmk_ble_active_profile_changed);
+    ZMK_SUBSCRIPTION(led_output_status, zmk_ble_active_profile_changed);
 #endif
 
+SYS_INIT(pwr_led_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
