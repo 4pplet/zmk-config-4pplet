@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 The ZMK Contributors
+ * Copyright (c) 2021 The ZMK Contributors
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -8,7 +8,7 @@
 #include <kernel.h>
 #include <device.h>
 #include <devicetree.h>
-#include <drivers/gpio.h>
+#include <drivers/pwm.h>
 
 #include <bluetooth/services/bas.h>
 
@@ -18,94 +18,109 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/ble.h>
 #include <zmk/event_manager.h>
 #include <zmk/events/ble_active_profile_changed.h>
-/*
+
 #define BUZZER_NODE DT_ALIAS(buzzer)
 
 #if !DT_NODE_HAS_STATUS(BUZZER_NODE, okay)
-    #error "Unsupported board: buzzer devicetree alias is not defined"
+#error "Unsupported board: buzzer devicetree alias is not defined"
+#define BUZZ_LABEL ""
+#define BUZZ_CHANNEL 0
+#define BUZZ_FLAGS 0
+#else
+#define BUZZ_LABEL DT_PWMS_LABEL(BUZZER_NODE)
+#define BUZZ_CHANNEL DT_PWMS_CHANNEL(BUZZER_NODE)
+#define BUZZ_FLAGS DT_PWMS_FLAGS(BUZZER_NODE)
 #endif
 
-#define LED_R DT_GPIO_LABEL(BUZZER_NODE, gpios)
-#define PIN_R DT_GPIO_PIN(BUZZER_NODE, gpios)
-#define FLAGS_R DT_GPIO_FLAGS(BUZZER_NODE, gpios)
+#define PERIOD_MIN     50
+#define PERIOD_MAX     3900
+#define PERIOD_INIT    1500
 
-typedef struct cyber60_buzzer {
-    const char *name;
-    gpio_pin_t pin;
-    gpio_flags_t flags;
-} cyber60_led_t;
-/*
-void reset_leds()
+#define BEEP_DURATION  K_MSEC(60)
+
+void _play(const struct device *pwm, uint32_t period)
 {
-    for (int i = 0; i < led_size; i++) {
-        const struct device *dev = device_get_binding(leds[i].name);
-        if (dev == NULL) {
-            return;
-        }
-        gpio_pin_set(dev, leds[i].pin, false);
-    }
+    pwm_pin_set_usec(pwm, BUZZ_CHANNEL, period, period / 2U, BUZZ_FLAGS);
+    k_sleep(BEEP_DURATION);
+
+    pwm_pin_set_usec(pwm, BUZZ_CHANNEL, 0, 0, BUZZ_FLAGS);
+    k_sleep(K_MSEC(50));
+
 }
 
-void set_led(size_t index)
+void play_sound_1(const struct device *pwm)
 {
-    
-    const struct device *dev = device_get_binding(leds[index].name);
-    if (dev == NULL) {
-        return;
-    }
-    gpio_pin_set(dev, leds[index].pin, true);
+    _play(pwm, 1000);
+    _play(pwm, 500);
+    _play(pwm, 250);
+    _play(pwm, 100);
+    _play(pwm, 50);
 }
 
-
-void led_work_handler(struct k_work *work) {
-    reset_leds();
-}
-
-K_WORK_DEFINE(led_work, led_work_handler);
-
-void led_expiry_function()
+void play_sound_2(const struct device *pwm)
 {
-    k_work_submit(&led_work);
+    _play(pwm, 1500);
+    _play(pwm, 3900);
+    _play(pwm, 1500);
+    _play(pwm, 1500);
 }
 
-K_TIMER_DEFINE(led_timer, led_expiry_function, NULL);
-*/
+void play_sound_3(const struct device *pwm)
+{
+    _play(pwm, 1500);
+    _play(pwm, 3900);
+}
+
+void play_sound_4(const struct device *pwm)
+{
+    _play(pwm, 2000);
+    _play(pwm, 3900);
+}
+
+void play_sound_5(const struct device *pwm)
+{
+    _play(pwm, 2500);
+    _play(pwm, 3900);
+}
+
 int buzzer_listener(const zmk_event_t *eh)
 {
-    //uint8_t index = zmk_ble_active_profile_index();
+    const struct zmk_ble_active_profile_changed *profile_ev = NULL;
+    const struct device *pwm;
 
-    /*
-    k_timer_stop(&led_timer);
-
-    reset_leds();
-    switch(index) {
-    case 0:
-        set_led(RED);
-        break;
-    case 1:
-        set_led(GREEN);
-        break;
-    case 2:
-        set_led(BLUE);
-        break;
-    case 3:
-        set_led(RED);
-        set_led(GREEN);
-        break;
-    case 4:
-        set_led(BLUE);
-        set_led(GREEN);
-        break;
-    default:
-        break;
+    if ((profile_ev = as_zmk_ble_active_profile_changed(eh)) == NULL) {
+        return ZMK_EV_EVENT_BUBBLE;
     }
-    k_timer_start(&led_timer, K_SECONDS(3), K_SECONDS(3));
-*/
+
+    pwm = device_get_binding(BUZZ_LABEL);
+    if (NULL == pwm) {
+        return ZMK_EV_EVENT_BUBBLE;
+    }
+
+    switch(profile_ev->index) {
+        case 0:
+            play_sound_1(pwm);
+            break;
+        case 1:
+            play_sound_2(pwm);
+            break;
+        case 2:
+            play_sound_3(pwm);
+            break;
+        case 3:
+            play_sound_4(pwm);
+            break;
+        case 4:
+            play_sound_5(pwm);
+            break;
+        default:
+            break;
+    }
+
     return ZMK_EV_EVENT_BUBBLE;
 }
 
 ZMK_LISTENER(buzzer_output_status, buzzer_listener)
 #if defined(CONFIG_ZMK_BLE)
-ZMK_SUBSCRIPTION(buzzer_output_status, zmk_ble_active_profile_changed);
+    ZMK_SUBSCRIPTION(buzzer_output_status, zmk_ble_active_profile_changed);
 #endif
-
