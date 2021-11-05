@@ -60,7 +60,13 @@ jobs:
         uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
         id: west-build-cyber60_rev_b
         with:
-          args: 'build "-s zmk/app -p -b cyber60_rev_b -- -DZMK_CONFIG=/github/workspace/config"'
+          args: 'build "-s zmk/app -p -b cyber60@B -- -DZMK_CONFIG=/github/workspace/config -DKEYMAP_FILE=/github/workspace/config/boards/arm/cyber60/cyber60.keymap"'
+      - name: Generated DTS tmp file
+        if: always()
+        run: cat -n build/zephyr/cyber60.dts.pre.tmp
+      - name: Generated DTS file
+        if: always()
+        run: cat -n build/zephyr/zephyr.dts
       - name: Archive (cyber60_rev_b)
         uses: actions/upload-artifact@v2
         with:
@@ -70,7 +76,13 @@ jobs:
         uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
         id: west-build-cyber60_rev_c
         with:
-          args: 'build "-s zmk/app -p -b cyber60_rev_c -- -DZMK_CONFIG=/github/workspace/config"'
+          args: 'build "-s zmk/app -p -b cyber60@C -- -DZMK_CONFIG=/github/workspace/config -DKEYMAP_FILE=/github/workspace/config/boards/arm/cyber60/cyber60.keymap"'
+      - name: Generated DTS tmp file
+        if: always()
+        run: cat -n build/zephyr/cyber60.dts.pre.tmp
+      - name: Generated DTS file
+        if: always()
+        run: cat -n build/zephyr/zephyr.dts
       - name: Archive (cyber60_rev_c)
         uses: actions/upload-artifact@v2
         with:

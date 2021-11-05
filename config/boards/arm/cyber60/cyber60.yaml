@@ -1,5 +1,5 @@
-identifier: cyber60_rev_c
-name: Cyber60 Rev C
+identifier: cyber60
+name: Cyber60
 type: mcu
 arch: arm
 toolchain:
