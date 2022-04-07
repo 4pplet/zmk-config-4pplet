@@ -13,6 +13,6 @@
 #
 ---
 include:
-  - board: cyber60_a
-  - board: cyber60_b
-  - board: cyber60_c
+  - board: cyber60_rev_a
+  - board: cyber60_rev_b
+  - board: cyber60_rev_c
