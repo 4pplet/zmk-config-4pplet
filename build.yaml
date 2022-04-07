@@ -14,5 +14,5 @@
 ---
 include:
   - board: cyber60_rev_a
-  - board: cyber60_rev_b
-  - board: cyber60_rev_c
+  - board: cyber60@B
+  - board: cyber60@C
