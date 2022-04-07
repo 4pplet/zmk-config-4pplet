@@ -2,6 +2,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/ext_power.h>
 
 #define FN1 2
@@ -17,14 +18,16 @@
 // | CAPS  |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |none| ENTER   |
 // | SHIFT |none| Z |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |    Shift   | FN |
 // |  LCTL  |  LWIN  |  LALT  | SPACE  | SPACE |    SPACE   |  RALT | FN  |   RWIN  | RCTRL |
-// ------------------------------------------------------------------------------------------ 
+// | Rotary | (<-- Rotary switch) ----------------------------------------------------------- 
 				bindings = <
 	&kp ESC		 &kp NUM_1 	&kp NUM_2	&kp NUM_3 	&kp NUM_4 &kp NUM_5 &kp NUM_6 	&kp NUM_7 	&kp NUM_8 &kp NUM_9	&kp NUM_0	&kp MINUS	&kp EQL  	&none	&kp BKSP
 	&kp TAB		 &kp   Q   	&kp   W   	&kp   E   	&kp   R   &kp   T   &kp   Y   	&kp   U   	&kp   I   &kp   O   &kp   P   	&kp LBKT 	&kp RBKT	&kp BSLH
 	&kp CLCK 	 &kp   A   	&kp   S   	&kp   D   	&kp   F   &kp   G   &kp   H   	&kp   J   	&kp   K   &kp   L   &kp  SCLN  	&kp  QUOT   &none		&kp RET
 	&kp LSFT 	 &none		&kp   Z   	&kp   X   	&kp   C   &kp   V   &kp   B   	&kp   N   	&kp   M   &kp  CMMA &kp  DOT  	&kp  FSLH	&kp RSFT 	&mo FN1
 	&kp LCTL 	 &kp LGUI   &kp   LALT				&kp SPC			&kp SPC			&kp  SPC  			  &kp  RALT &mo  FN1 	&kp RGUI	&kp  RCTL		
+	&kp C_PP
 			>;
+			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
 		};
 		settings_layer {
 // Settings layer to change keyboard behaviour
@@ -32,16 +35,18 @@
 // | EXIT|BOOTL| RST | USB | BLE | NON | NON | NON | NON | NON | NON | NON | NON | NON |NON |
 // | NON  |BTCLR| BT0 | BT1 | BT2 | BT3 | BT4 | NON | NON | NON | NON | NON | NON |   NON   |
 // |  NON  | NON | NON | NON | NON | NON | NON | NON | NON | NON | NON | NON | NON |  NON   |
-// |  NON | NON | NON | NON | NON | NON | NON | NON | NON | NON | NON | NON |   NON   | NON |
+// |  NON | NON|U_TG|U_BRD|U_BRI|U_EFR|U_HUD|U_HUI|U_SAD|U_SAI|U_SPD|U_SPI|    NON    | NON |
 // |   NON  |  NON   |  NON   |   NON  | NON |    NON       |  NON  |  NON  |  NON  |  NON  |
-// ------------------------------------------------------------------------------------------  
+// | Rotary | (<-- Rotary switch) ----------------------------------------------------------- 
 				bindings = <
 	&tog SETTINGS		&bootloader 	&reset			&out OUT_USB	&out OUT_BLE	&none 	&none 		&none 	&none	&none	&none			&none			&none  			&none			&none
 	&none 	&bt BT_CLR  &bt BT_SEL 0  	&bt BT_SEL 1   	&bt BT_SEL 2	&bt BT_SEL 3   	&bt BT_SEL 4   		&none	&none   &none	&none   		&none			&none			&none
 	&none	&none   	&none   		&none   		&none   		&none   		&none   			&none   &none	&none   &none			&none			&none   		&none
-	&none	&none		&none 			&none			&none 			&none 			&none				&none	&none	&none	&none			&none			&none 			&none
-	&none	&none    	&none							&none			&none			&none  				&none			&none 	&none			&none		
+	&none	&none		&rgb_ug RGB_TOG &rgb_ug RGB_BRD	&rgb_ug RGB_BRI &rgb_ug RGB_EFR &rgb_ug RGB_HUD		&rgb_ug RGB_HUI	&rgb_ug RGB_SAD	&rgb_ug RGB_SAI	&rgb_ug RGB_SPD	&rgb_ug RGB_SPI	&none 	&none
+	&none	&none    	&none							&none			&none			&none  				&none			&none 	&none			&none	
+	&none	
 			>;
+			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
 		};
 		fn_layer {
 // Function layer
@@ -51,14 +56,16 @@
 // | CAPS  |LEFT |DOWN |RIGHT|MUTE |  G  |  *  |  /  | HOME| PGUP| LEFT|RIGHT|none|  ENTER  |
 // | SHIFT |none|PRV|PLAYP|NEXT | VOLD| VOLU|  +  |  -  | END | PGDN| DOWN|    Shift   | FN |
 // |  LCTL  |  LGUI  |  LWIN  |  RALT  | FN |     SPACE     |  RALT |  RWIN | RMENU | RCTRL |
-// ------------------------------------------------------------------------------------------ 
+// | Rotary | (<-- Rotary switch) ----------------------------------------------------------- 
 			bindings = <
 	&bootloader 	&kp F1		&kp F2 	 		&kp F3			&kp F4			&kp F5			&kp F6			&kp F7			&kp F8			&kp F9			&kp F10		&kp F11		&kp F12			&kp INS	&tog SETTINGS
 	&trans			&bt BT_PRV  &kp UP   		&bt BT_NXT		&trans			&trans			&trans			&trans			&trans			&trans			&kp SLCK	&kp UP		&kp C_AL_LOCK	&kp DEL
 	&kp CLCK 		&kp LEFT   	&kp DOWN		&kp RIGHT		&kp K_MUTE		&trans			&kp KP_ASTERISK	&kp KP_SLASH	&kp HOME		&kp PG_UP		&kp LEFT	&kp RIGHT	&trans		&trans
 	&trans 			&trans   	&kp C_PREV   	&kp C_PP	 	&kp C_NEXT 		&kp C_VOL_DN	&kp C_VOL_UP	&kp KP_PLUS		&kp KP_MINUS	&kp END			&kp PG_DN	&kp DOWN	&trans 		&trans
 	&trans 			&trans   	&trans             				&trans			&trans			&trans  		&trans  		&trans			&trans			&trans		
+	&kp C_PP
 			>;
+			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
 		};
 	};
 };

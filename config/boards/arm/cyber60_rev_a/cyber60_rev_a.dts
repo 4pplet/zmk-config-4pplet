@@ -9,7 +9,7 @@
 #include <dt-bindings/zmk/matrix-transform.h>
 / {
 	model = "CYBER60_REV_A";
-	compatible = "cyber60", "Rev A";
+	compatible = "cyber60", "Rev_A";
 
 	chosen {
 		zephyr,code-partition = &code_partition;
