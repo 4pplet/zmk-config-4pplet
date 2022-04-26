@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2021 Megamind (megamind4089)
+/* Copyright (c) 2021 Megamind (megamind4089)
+ * Copyright (c) 2021 The ZMK Contributors
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -27,7 +27,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define BUZZ_CHANNEL 0
 #define BUZZ_FLAGS 0
 #else
-#define BUZZ_LABEL DT_PWMS_LABEL(BUZZER_NODE)
+#define BUZZ_LABEL DT_LABEL(DT_PWMS_CTLR(BUZZER_NODE))
 #define BUZZ_CHANNEL DT_PWMS_CHANNEL(BUZZER_NODE)
 #define BUZZ_FLAGS DT_PWMS_FLAGS(BUZZER_NODE)
 #endif
@@ -85,6 +85,7 @@ void play_sound_5(const struct device *pwm)
 
 int buzzer_listener(const zmk_event_t *eh)
 {
+
     const struct zmk_ble_active_profile_changed *profile_ev = NULL;
     const struct device *pwm;
 
@@ -116,7 +117,6 @@ int buzzer_listener(const zmk_event_t *eh)
         default:
             break;
     }
-
     return ZMK_EV_EVENT_BUBBLE;
 }
 

@@ -80,24 +80,15 @@
 			status = "okay";
 		};
 	};
-	
-	// currently unused. Buzzer on P0.23
-	buzzer {
-		compatible = "buzzer";
-		gpios = <&gpio0 23 GPIO_ACTIVE_LOW>;
-		label = "BUZZER";
-		status = "okay";
-	};
 
-	// currently unused. Buzzer on P0.23
-	pwm_buzzer {
-		compatible = "pwm_buzzer";
-		pwms = <&pwm0 23>;
-		label = "PWM BUZZER";
-		status = "okay";
-	};
+// PWM buzzer config
+    buzzer: pwm_buzzer {
+        compatible = "pwm-buzzer";
+        label = "PWM BUZZER";
+        pwms = <&pwm0 23>;
+        status = "okay";
+    };
 	
-
 	/* These aliases are provided for compatibility with samples */
 	aliases {
 		ledgreen = &led_0;
@@ -106,8 +97,7 @@
 		pwmledgreen = &pwm_led_0;
 		pwmledred = &pwm_led_1;
 		pwmledblue = &pwm_led_2;
-		//pwm-0 = &pwm_buzzer;
-		//buzzer = &buzzer;
+		buzzer = &buzzer;
 	};
 
 	ext-power {
@@ -159,19 +149,25 @@ RC(9,6) // rotary sw
 };
 
 &gpio0 {
-	status = "okay";
+    status = "okay";
 };
 
 &gpio1 {
-	status = "okay";
+    status = "okay";
 };
 
 &adc {
-	status = "okay";
+    status = "okay";
 };
 
 &usbd {
-	status = "okay";
+    status = "okay";
+};
+
+&pwm0 {
+	ch0-pin = <23>;
+    ch0-inverted;
+    status = "okay";
 };
 
 &spi0 {

@@ -80,13 +80,16 @@
 		};
 	};
 	
-	// currently unused. Buzzer on pin P0.29
-	pwm_buzzer {
-		compatible = "pwm_buzzer";
-		pwms = <&pwm0 29>;
-		label = "PWM BUZZER";
-		status = "okay";
-	};
+
+	
+// PWM buzzer config
+    buzzer: pwm_buzzer {
+        compatible = "pwm-buzzer";
+        label = "PWM BUZZER";
+        pwms = <&pwm0 29>;
+        status = "okay";
+    };
+
 
 	/* These aliases are provided for compatibility with samples */
 	aliases {
@@ -96,6 +99,7 @@
 		pwmledgreen = &pwm_led_0;
 		pwmledred = &pwm_led_1;
 		pwmledblue = &pwm_led_2;
+		buzzer = &buzzer;
 	};
 
 	ext-power {
