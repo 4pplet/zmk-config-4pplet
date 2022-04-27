@@ -24,7 +24,7 @@
 
 	vbatt {
 		compatible = "zmk,battery-voltage-divider";
-		label = "BATTERY";
+		label = "VOLTAGE_DIVIDER";
 		io-channels = <&adc 1>; // P0.03
 		output-ohms = <2000000>;
 		full-ohms = <(1000000 + 2000000)>;
@@ -163,6 +163,11 @@ RC(9,6) // rotary sw
 
 &usbd {
 	status = "okay";
+};
+
+&pwm0 {
+	ch0-pin = <23>;
+    status = "okay";
 };
 
 &spi0 {
