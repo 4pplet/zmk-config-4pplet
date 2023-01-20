@@ -6,5 +6,5 @@ ZMK-config for 4pplet keyboards. Currently supported keyboards:
 https://github.com/4pplet/cyber60
 
 # Status:
-- Revision B, C and D: Buzzer and RGB led implemented as Bluetooth profile indicators.
+- Revision B, C and D: Buzzer and RGB led implemented as Bluetooth profile indicators but currently only working using a local build: https://github.com/4pplet/zmk
 - Updated to Zephyr 3.0
