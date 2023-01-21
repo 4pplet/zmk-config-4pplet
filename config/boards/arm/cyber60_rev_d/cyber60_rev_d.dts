@@ -45,13 +45,13 @@
     };
 	leds {
 			compatible = "gpio-leds";
-			led_0: led_green { // P0.07
-				gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
+			led_0: led_green { // P0.05
+				gpios = <&gpio0 5 GPIO_ACTIVE_LOW>;
 				label = "Green LED";
 				status = "okay";
 			};
-			led_1: led_red { // P0.05
-				gpios = <&gpio0 5 GPIO_ACTIVE_LOW>;
+			led_1: led_red { // P0.07
+				gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
 				label = "Red LED";
 				status = "okay";
 			};

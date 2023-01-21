@@ -64,13 +64,13 @@
 
 	pwmleds {
 		compatible = "pwm-leds";
-		pwm_led_0: pwm_led_green { // P0.07
-			pwms = <&pwm0 7>;
+		pwm_led_0: pwm_led_green { // P0.05
+			pwms = <&pwm0 5>;
 			label = "Green PWM LED";
 			status = "okay";
 		};
-		pwm_led_1: pwm_led_red { // P0.05
-			pwms = <&pwm0 5>;
+		pwm_led_1: pwm_led_red { // P0.07
+			pwms = <&pwm0 7>;
 			label = "Red PWM LED";
 			status = "okay";
 		};
