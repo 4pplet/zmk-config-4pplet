@@ -36,7 +36,7 @@
 // |   NON  |  NON   |  NON   |   NON  | NON |    NON       |  NON  |  NON  |  NON  |  NON  |
 // ------------------------------------------------------------------------------------------  
 				bindings = <
-	&tog SETTINGS		&bootloader 	&reset			&out OUT_USB	&out OUT_BLE	&none 	&none 		&none 	&none	&none	&none			&none			&none  			&none			&none
+	&tog SETTINGS		&bootloader 	&sys_reset			&out OUT_USB	&out OUT_BLE	&none 	&none 		&none 	&none	&none	&none			&none			&none  			&none			&none
 	&none 	&bt BT_CLR  &bt BT_SEL 0  	&bt BT_SEL 1   	&bt BT_SEL 2	&bt BT_SEL 3   	&bt BT_SEL 4   		&none	&none   &none	&none   		&none			&none			&none
 	&none	&none   	&none   		&none   		&none   		&none   		&none   			&none   &none	&none   &none			&none			&none   		&none
 	&none	&none		&none 			&none			&none 			&none 			&none				&none	&none	&none	&none			&none			&none 			&none
