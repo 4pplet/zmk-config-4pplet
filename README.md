@@ -11,7 +11,9 @@ https://github.com/4pplet/cyber60
 # Keymap-editor
 The keymap can be edited using the keymap-editor tool: https://nickcoutsos.github.io/keymap-editor/
 
-Do note: In the default setup for this repo, the keymap for revision D will be edited. To use this tool for revusion B-C, simply move that keymap-file to the /config-folder and delete the current revision D keymap file. How to get started using the tool and cyber60: https://github.com/4pplet/cyber60/blob/master/instructions/ZMK_keymap-editor.md
+Do note: In the default setup for this repo, the keymap for revision D will be edited. To use this tool for revusion B-C, simply move that keymap-file to the /config-folder and delete the current revision D keymap file. 
+
+How to get started using the tool and cyber60: https://github.com/4pplet/cyber60/blob/master/instructions/ZMK_keymap-editor.md
 
 # Status:
 - Updated to Zephyr 3.2
