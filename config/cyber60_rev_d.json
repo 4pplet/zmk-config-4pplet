@@ -1,0 +1,92 @@
+{
+  "id": "cyber60_rev_d",
+  "name": "cyber60_rev_d",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        { "label":   "ESC", "row": 0, "col":  0, "x":     0, "y": 0 },
+        { "label":   "N_1", "row": 0, "col":  1, "x":     1, "y": 0 },
+        { "label":   "N_1", "row": 0, "col":  2, "x":     2, "y": 0 },
+        { "label":   "N_3", "row": 0, "col":  3, "x":     3, "y": 0 },
+        { "label":   "N_4", "row": 0, "col":  4, "x":     4, "y": 0 },
+        { "label":   "N_5", "row": 0, "col":  5, "x":     5, "y": 0 },
+        { "label":   "N_6", "row": 0, "col":  6, "x":     6, "y": 0 },
+        { "label":   "N_7", "row": 0, "col":  7, "x":     7, "y": 0 },
+        { "label":   "N_8", "row": 0, "col":  8, "x":     8, "y": 0 },
+        { "label":   "N_9", "row": 0, "col":  9, "x":     9, "y": 0 },
+        { "label":   "N_0", "row": 0, "col": 10, "x":    10, "y": 0 },
+        { "label": "MINUS", "row": 0, "col": 11, "x":    11, "y": 0 },
+        { "label":   "EQL", "row": 0, "col": 12, "x":    12, "y": 0 },
+        { "label":  "BSLH", "row": 0, "col": 13, "x":    13, "y": 0 },
+        { "label":  "BSPC", "row": 0, "col": 14, "x":    14, "y": 0 },
+
+        { "label":   "TAB", "row": 1, "col":  0, "x":     0, "y": 1, "w":  1.5 },
+        { "label":     "Q", "row": 1, "col":  1, "x":   1.5, "y": 1 },
+        { "label":     "W", "row": 1, "col":  2, "x":   2.5, "y": 1 },
+        { "label":     "E", "row": 1, "col":  3, "x":   3.5, "y": 1 },
+        { "label":     "R", "row": 1, "col":  4, "x":   4.5, "y": 1 },
+        { "label":     "T", "row": 1, "col":  5, "x":   5.5, "y": 1 },
+        { "label":     "Y", "row": 1, "col":  6, "x":   6.5, "y": 1 },
+        { "label":     "U", "row": 1, "col":  7, "x":   7.5, "y": 1 },
+        { "label":     "I", "row": 1, "col":  8, "x":   8.5, "y": 1 },
+        { "label":     "O", "row": 1, "col":  9, "x":   9.5, "y": 1 },
+        { "label":     "P", "row": 1, "col": 10, "x":  10.5, "y": 1 },
+        { "label":  "LBKT", "row": 1, "col": 11, "x":  11.5, "y": 1 },
+        { "label":  "RBKT", "row": 1, "col": 12, "x":  12.5, "y": 1 },
+        { "label":  "BSLH", "row": 1, "col": 13, "x":  13.5, "y": 1, "w":  1.5 },
+
+        { "label":  "CLCK", "row": 2, "col":  0, "x":     0, "y": 2, "w": 1.75 },
+        { "label":     "A", "row": 2, "col":  1, "x":  1.75, "y": 2 },
+        { "label":     "S", "row": 2, "col":  2, "x":  2.75, "y": 2 },
+        { "label":     "D", "row": 2, "col":  3, "x":  3.75, "y": 2 },
+        { "label":     "F", "row": 2, "col":  4, "x":  4.75, "y": 2 },
+        { "label":     "G", "row": 2, "col":  5, "x":  5.75, "y": 2 },
+        { "label":     "H", "row": 2, "col":  6, "x":  6.75, "y": 2 },
+        { "label":     "J", "row": 2, "col":  7, "x":  7.75, "y": 2 },
+        { "label":     "K", "row": 2, "col":  8, "x":  8.75, "y": 2 },
+        { "label":     "L", "row": 2, "col":  9, "x":  9.75, "y": 2 },
+        { "label":  "SEMI", "row": 2, "col": 10, "x": 10.75, "y": 2 },
+        { "label":   "SQT", "row": 2, "col": 11, "x": 11.75, "y": 2 },
+        { "label":  "NUHS", "row": 2, "col": 12, "x": 12.75, "y": 2 },
+        { "label":   "RET", "row": 2, "col": 13, "x": 13.75, "y": 2, "w": 1.25 },
+
+        { "label":  "LSFT", "row": 3, "col":  0, "x":     0, "y": 3, "w": 1.25 },
+        { "label":  "NUBS", "row": 3, "col":  1, "x":  1.25, "y": 3 },
+        { "label":     "Z", "row": 3, "col":  2, "x":  2.25, "y": 3 },
+        { "label":     "X", "row": 3, "col":  3, "x":  3.25, "y": 3 },
+        { "label":     "C", "row": 3, "col":  4, "x":  4.25, "y": 3 },
+        { "label":     "V", "row": 3, "col":  5, "x":  5.25, "y": 3 },
+        { "label":     "B", "row": 3, "col":  6, "x":  6.25, "y": 3 },
+        { "label":     "N", "row": 3, "col":  7, "x":  7.25, "y": 3 },
+        { "label":     "M", "row": 3, "col":  8, "x":  8.25, "y": 3 },
+        { "label":  "CMMA", "row": 3, "col":  9, "x":  9.25, "y": 3 },
+        { "label":   "DOT", "row": 3, "col": 10, "x": 10.25, "y": 3 },
+        { "label":  "FSLH", "row": 3, "col": 11, "x": 11.25, "y": 3 },
+        { "label":  "RSFT", "row": 3, "col": 12, "x": 12.25, "y": 3, "w": 1.75 },
+        { "label":   "FN1", "row": 3, "col": 13, "x":    14, "y": 3 },
+
+        { "label":  "LCTL", "row": 4, "col":  0, "x":     0, "y": 4, "w": 1.25 },
+        { "label":  "LGUI", "row": 4, "col":  1, "x":  1.25, "y": 4, "w": 1.25 },
+        { "label":  "LALT", "row": 4, "col":  2, "x":   2.5, "y": 4, "w": 1.25 },
+        { "label":   "SPC", "row": 4, "col":  3, "x":  3.75, "y": 4, "w": 2.25 },
+        { "label":   "SPC", "row": 4, "col":  4, "x":     6, "y": 4, "w": 1.25 },
+        { "label":   "SPC", "row": 4, "col":  5, "x":  7.25, "y": 4, "w": 2.75 },
+        { "label":  "RALT", "row": 4, "col":  6, "x":    10, "y": 4, "w": 1.25 },
+        { "label":   "FN1", "row": 4, "col":  7, "x": 11.25, "y": 4, "w": 1.25 },
+        { "label":  "RGUI", "row": 4, "col":  8, "x":  12.5, "y": 4, "w": 1.25 },
+        { "label":  "RCTL", "row": 4, "col":  9, "x": 13.75, "y": 4, "w": 1.25 },
+
+        { "label":  "C_PP", "row": 5, "col":  0, "x":    15, "y": 0, "w":    1 }
+      ]
+    }
+  },
+  "sensors": [
+    {
+      "ref": "encoder",
+      "name": "encoder_1",
+      "identifier": "encoder_1",
+      "compatible": "alps,ec11",
+      "label": "ENCODER"
+    }
+  ]
+}
