@@ -9,5 +9,4 @@ https://github.com/4pplet/cyber60
 ![alt text](./readme-images/default_fw_20230120.jpg "Default firmware")
 
 # Status:
-- Revision B, C and D: Buzzer and RGB led implemented as Bluetooth profile indicators but currently only working using a local build: https://github.com/4pplet/zmk
-- Updated to Zephyr 3.0
+- Updated to Zephyr 3.2
