@@ -21,8 +21,12 @@ CONFIG_FLASH_PAGE_LAYOUT=y
 CONFIG_FLASH_MAP=y
 
 # set TX power level
-CONFIG_BT_CTLR_TX_PWR_PLUS_8=y // Recommended if used in a metal enclosure
+# CONFIG_BT_CTLR_TX_PWR_PLUS_8=y // Recommended if used in a metal enclosure
 
 # Enable sleep
-CONFIG_ZMK_SLEEP=y
+# CONFIG_ZMK_SLEEP=y
 # CONFIG_ZMK_IDLE_SLEEP_TIMEOUT=120000
+
+# Turn on logging, and set ZMK logging to debug output
+# CONFIG_LOG_PROCESS_THREAD_STARTUP_DELAY_MS=8000
+# CONFIG_ZMK_USB_LOGGING=y

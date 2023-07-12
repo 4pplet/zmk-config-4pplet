@@ -6,7 +6,7 @@
 
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
-#include <dt-bindings/zmk/matrix-transform.h>
+#include <dt-bindings/zmk/matrix_transform.h>
 / {
 	model = "CYBER60_REV_A";
 	compatible = "cyber60", "Rev_A";
@@ -16,17 +16,20 @@
 		zephyr,sram = &sram0;
 		zephyr,flash = &flash0;
 		zmk,kscan = &kscan0;
-		zmk,matrix_transform = &default_transform;
+        zmk,matrix_transform = &default_transform;
+		zmk,battery = &vbatt;
+		zephyr,console = &cdc_acm_uart;
 	};
 
-	vbatt {
+	vbatt: vbatt {
 		compatible = "zmk,battery-voltage-divider";
-		label = "VOLTAGE_DIVIDER";
-		io-channels = <&adc 1>;
+		label = "VBATT";
+		io-channels = <&adc 1>; // P0.03
 		output-ohms = <100000>;
-		full-ohms = <(100000 + 100000)>;
-		power-gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>;
+		full-ohms = <(1000000 + 2000000)>;
+		power-gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>; // P1.15
 	};
+
 	
 	leds {
 		compatible = "gpio-leds";
@@ -43,33 +46,12 @@
 			label = "Blue LED";
 		};
 	};
-		pwmleds {
-		compatible = "pwm-leds";
-		pwm_led_0: pwm_led_green {
-			pwms = <&pwm0 28>;
-			label = "Green PWM LED";
-			status = "okay";
-		};
-		pwm_led_1: pwm_led_red {
-			pwms = <&pwm1 13>;
-			label = "Red PWM LED";
-			status = "okay";
-		};
-		pwm_led_2: pwm_led_blue {
-			pwms = <&pwm0 5>;
-			label = "Blue PWM LED";
-			status = "okay";
-		};
-	};
 
 	/* These aliases are provided for compatibility with samples */
 	aliases {
 		ledgreen = &led_0;
 		ledred   = &led_1;
 		ledblue  = &led_2;
-		pwmledgreen = &pwm_led_0;
-		pwmledred = &pwm_led_1;
-		pwmledblue = &pwm_led_2;
 	};
 
 	default_transform: keymap_transform_0 {
@@ -77,11 +59,11 @@
 		columns = <11>;
 		rows = <6>;
 		map = <
-RC(0,0) RC(0,1) RC(1,1) RC(0,2) RC(0,3) RC(0,4) RC(1,4) RC(0,5) RC(0,6) RC(0,7) RC(1,7) RC(0,8) RC(0,9) RC(0,10) RC(1,10)
-RC(1,0)   RC(2,1) RC(1,2) RC(2,2) RC(1,3) RC(2,4) RC(1,5) RC(1,6) RC(2,6) RC(2,7) RC(1,8) RC(1,9) RC(2,9)   RC(3,10)
-RC(2,0)     RC(3,1) RC(3,2) RC(2,3) RC(3,3) RC(3,4) RC(2,5) RC(3,6) RC(4,6) RC(3,7) RC(2,8) RC(3,9)          RC(2,10)
-RC(3,0)       RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(3,5) RC(4,5) RC(5,6) RC(4,7)    RC(3,8)     RC(4,8) RC(4,9) RC(4,10)
-RC(5,0)   RC(5,1)   RC(5,2)  RC(5,3)                    RC(5,4)                     RC(5,5) RC(5,7) RC(5,8) RC(5,9) RC(5,10)
+			RC(0,0) RC(0,1) RC(1,1) RC(0,2) RC(0,3) RC(0,4) RC(1,4) RC(0,5) RC(0,6) RC(0,7) RC(1,7) RC(0,8) RC(0,9) RC(0,10) RC(1,10)
+			RC(1,0) RC(2,1) RC(1,2) RC(2,2) RC(1,3) RC(2,4) RC(1,5) RC(1,6) RC(2,6) RC(2,7) RC(1,8) RC(1,9) RC(2,9) RC(3,10)
+			RC(2,0) RC(3,1) RC(3,2) RC(2,3) RC(3,3) RC(3,4) RC(2,5) RC(3,6) RC(4,6) RC(3,7) RC(2,8) RC(3,9) RC(2,10)
+			RC(3,0) RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(3,5) RC(4,5) RC(5,6) RC(4,7) RC(3,8) RC(4,8) RC(4,9) RC(4,10)
+			RC(5,0) RC(5,1) RC(5,2) RC(5,3)                 RC(5,4)                 RC(5,5) RC(5,7) RC(5,8) RC(5,9) RC(5,10)
 		>;
 	};
 
@@ -127,7 +109,11 @@ RC(5,0)   RC(5,1)   RC(5,2)  RC(5,3)                    RC(5,4)                 
 };
 
 &usbd {
-	status = "okay";
+    status = "okay";
+    cdc_acm_uart: cdc_acm_uart {
+        compatible = "zephyr,cdc-acm-uart";
+        label = "CDC_ACM_0";
+    };
 };
 
 &flash0 {

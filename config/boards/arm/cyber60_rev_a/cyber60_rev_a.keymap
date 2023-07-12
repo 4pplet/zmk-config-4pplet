@@ -21,7 +21,7 @@
 				bindings = <
 	&kp ESC		 &kp NUM_1 	&kp NUM_2	&kp NUM_3 	&kp NUM_4 &kp NUM_5 &kp NUM_6 	&kp NUM_7 	&kp NUM_8 &kp NUM_9	&kp NUM_0	&kp MINUS	&kp EQL  	&none	&kp BKSP
 	&kp TAB		 &kp   Q   	&kp   W   	&kp   E   	&kp   R   &kp   T   &kp   Y   	&kp   U   	&kp   I   &kp   O   &kp   P   	&kp LBKT 	&kp RBKT	&kp BSLH
-	&kp CLCK 	 &kp   A   	&kp   S   	&kp   D   	&kp   F   &kp   G   &kp   H   	&kp   J   	&kp   K   &kp   L   &kp  SCLN  	&kp  QUOT   &none		&kp RET
+	&kp CLCK 	 &kp   A   	&kp   S   	&kp   D   	&kp   F   &kp   G   &kp   H   	&kp   J   	&kp   K   &kp   L   &kp  SCLN  	&kp  QUOT 	&kp RET
 	&kp LSFT 	 &none		&kp   Z   	&kp   X   	&kp   C   &kp   V   &kp   B   	&kp   N   	&kp   M   &kp  CMMA &kp  DOT  	&kp  FSLH	&kp RSFT 	&mo FN1
 	&kp LCTL 	 &kp LGUI   &kp   LALT				&kp SPC			&kp SPC			&kp  SPC  			  &kp  RALT &mo  FN1 	&kp RGUI	&kp  RCTL		
 			>;
@@ -38,7 +38,7 @@
 				bindings = <
 	&tog SETTINGS		&bootloader 	&sys_reset			&out OUT_USB	&out OUT_BLE	&none 	&none 		&none 	&none	&none	&none			&none			&none  			&none			&none
 	&none 	&bt BT_CLR  &bt BT_SEL 0  	&bt BT_SEL 1   	&bt BT_SEL 2	&bt BT_SEL 3   	&bt BT_SEL 4   		&none	&none   &none	&none   		&none			&none			&none
-	&none	&none   	&none   		&none   		&none   		&none   		&none   			&none   &none	&none   &none			&none			&none   		&none
+	&none	&none   	&none   		&none   		&none   		&none   		&none   			&none   &none	&none   &none			&none			&none   		
 	&none	&none		&none 			&none			&none 			&none 			&none				&none	&none	&none	&none			&none			&none 			&none
 	&none	&none    	&none							&none			&none			&none  				&none			&none 	&none			&none		
 			>;
@@ -55,7 +55,7 @@
 			bindings = <
 	&bootloader 	&kp F1		&kp F2 	 		&kp F3			&kp F4			&kp F5			&kp F6			&kp F7			&kp F8			&kp F9			&kp F10		&kp F11		&kp F12			&kp INS	&tog SETTINGS
 	&trans			&bt BT_PRV  &kp UP   		&bt BT_NXT		&trans			&trans			&trans			&trans			&trans			&trans			&kp SLCK	&kp UP		&kp C_AL_LOCK	&kp DEL
-	&kp CLCK 		&kp LEFT   	&kp DOWN		&kp RIGHT		&kp K_MUTE		&trans			&kp KP_ASTERISK	&kp KP_SLASH	&kp HOME		&kp PG_UP		&kp LEFT	&kp RIGHT	&trans		&trans
+	&kp CLCK 		&kp LEFT   	&kp DOWN		&kp RIGHT		&kp K_MUTE		&trans			&kp KP_ASTERISK	&kp KP_SLASH	&kp HOME		&kp PG_UP		&kp LEFT	&kp RIGHT	&trans		
 	&trans 			&trans   	&kp C_PREV   	&kp C_PP	 	&kp C_NEXT 		&kp C_VOL_DN	&kp C_VOL_UP	&kp KP_PLUS		&kp KP_MINUS	&kp END			&kp PG_DN	&kp DOWN	&trans 		&trans
 	&trans 			&trans   	&trans             				&trans			&trans			&trans  		&trans  		&trans			&trans			&trans		
 			>;

@@ -6,9 +6,9 @@
 
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
-#include <dt-bindings/zmk/matrix-transform.h>
+#include <dt-bindings/zmk/matrix_transform.h>
 #include <dt-bindings/led/led.h>
-
+#include "cyber60_rev_b-pinctrl.dtsi"
 / {
 	model = "CYBER60_REV_B";
 	compatible = "cyber60", "Rev_B";
@@ -20,12 +20,15 @@
 		zmk,kscan = &kscan0;
 		zmk,matrix_transform = &default_transform;
 		zmk,underglow = &led_strip;
+		zmk,battery = &vbatt;
+		zephyr,console = &cdc_acm_uart;
 	};
 
-	vbatt {
+
+	vbatt: vbatt {
 		compatible = "zmk,battery-voltage-divider";
 		label = "VOLTAGE_DIVIDER";
-		io-channels = <&adc 1>;
+		io-channels = <&adc 1>; // P0.03
 		output-ohms = <2000000>;
 		full-ohms = <(1000000 + 2000000)>;
 	};
@@ -60,34 +63,13 @@
 				status = "okay";
 			};
 		};
-
-	pwmleds {
-		compatible = "pwm-leds";
-		pwm_led_0: pwm_led_green {
-			pwms = <&pwm0 28>;
-			label = "Green PWM LED";
-			status = "okay";
-		};
-		pwm_led_1: pwm_led_red {
-			pwms = <&pwm0 2>;
-			label = "Red PWM LED";
-			status = "okay";
-		};
-		pwm_led_2: pwm_led_blue {
-			pwms = <&pwm0 4>;
-			label = "Blue PWM LED";
-			status = "okay";
-		};
-	};
 	
-
-	
-// PWM buzzer config
+	// PWM buzzer config
     buzzer: pwm_buzzer {
         compatible = "pwm-buzzer";
-        label = "PWM BUZZER";
-        pwms = <&pwm0 29>;
-        status = "okay";
+		pwms = <&pwm0 0 1000 PWM_POLARITY_NORMAL>;
+		label = "PWM BUZZER";
+		status = "okay";
     };
 
 
@@ -96,9 +78,6 @@
 		ledgreen = &led_0;
 		ledred   = &led_1;
 		ledblue  = &led_2;
-		pwmledgreen = &pwm_led_0;
-		pwmledred = &pwm_led_1;
-		pwmledblue = &pwm_led_2;
 		buzzer = &buzzer;
 	};
 
@@ -150,6 +129,8 @@
 	};
 };
 
+
+
 &gpio0 {
 	status = "okay";
 };
@@ -163,39 +144,38 @@
 };
 
 &usbd {
-	status = "okay";
-};
-
-&pwm0 {
-	ch0-pin = <29>;
     status = "okay";
+    cdc_acm_uart: cdc_acm_uart {
+        compatible = "zephyr,cdc-acm-uart";
+        label = "CDC_ACM_0";
+    };
+};
+&pwm0 {
+	//ch0-pin = <23>; //old imp.
+    status = "okay";    
+	pinctrl-0 = <&pwm0_default>;
+	pinctrl-1 = <&pwm0_sleep>;
+    pinctrl-names = "default", "sleep";
 };
 
-&spi0 {
-	// Underglow data: P0.31 
-  compatible = "nordic,nrf-spim";
-  status = "okay";
-  mosi-pin = <31>;
-  // Unused pins, needed for SPI definition, but not used by the ws2812 driver itself.
-  sck-pin = <6>;
-  miso-pin = <8>;
-
-  led_strip: ws2812@0 {
-    compatible = "worldsemi,ws2812-spi";
-    label = "WS2812";
-
-    /* SPI */
-    reg = <0>; /* ignored, but necessary for SPI bindings */
-    spi-max-frequency = <4000000>;
-
-    /* WS2812 */
-    chain-length = <16>; /* number of LEDs */
-    spi-one-frame = <0x70>;
-    spi-zero-frame = <0x40>;
-	color-mapping = <LED_COLOR_ID_GREEN
-					LED_COLOR_ID_RED
-					LED_COLOR_ID_BLUE>;
-  };
+&spi3 {
+	compatible = "nordic,nrf-spim";
+	status = "okay";
+	pinctrl-0 = <&spi3_default>;
+	pinctrl-1 = <&spi3_sleep>;
+	pinctrl-names = "default", "sleep";
+	led_strip: ws2812@0 {
+		compatible = "worldsemi,ws2812-spi";
+		label = "WS2812";
+		/* SPI */
+		reg = <0>; /* ignored, but necessary for SPI bindings */
+		spi-max-frequency = <4000000>;
+		/* WS2812 */
+		chain-length = <16>; /* LED strip length */
+		spi-one-frame = <0x70>;
+		spi-zero-frame = <0x40>;
+		color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
+	};
 };
 
 &flash0 {
