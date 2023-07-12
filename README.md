@@ -1,6 +1,6 @@
 # zmk-config-4pplet
 
-ZMK-config for 4pplet keyboards. Currently supported keyboards:
+ZMK-config for the cyber60 60% PCB.
 
 # Cyber60
 https://github.com/4pplet/cyber60
