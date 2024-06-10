@@ -5,7 +5,7 @@ ZMK-config for the cyber60 60% PCB.
 # Cyber60
 https://github.com/4pplet/cyber60
 
-# Default firmware:
+# Default keymap:
 ![alt text](./readme-images/default_fw_20230120.jpg "Default firmware")
 
 # Keymap-editor
