@@ -6,7 +6,7 @@ ZMK-config for the cyber60 60% PCB.
 https://github.com/4pplet/cyber60
 
 # Default keymap:
-![alt text](./readme-images/default_fw_20230120.jpg "Default firmware")
+![alt text](./readme-images/default_fw_20241017.jpg "Default firmware")
 
 # Keymap-editor
 The keymap can be edited using the keymap-editor tool: https://nickcoutsos.github.io/keymap-editor/
@@ -18,3 +18,4 @@ How to get started using the tool and cyber60: https://github.com/4pplet/cyber60
 # Status:
 - Updated to Zephyr 3.2
 - Added support for modifying keymap using the keymap-editor
+- Added alpha support for studio, it's on branch studio
