@@ -1,20 +1,11 @@
-/* Copyright (c) 2021 Megamind (megamind4089)
- * Copyright (c) 2021 The ZMK Contributors
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
 #include <zephyr/devicetree.h>
 #include <zephyr/drivers/pwm.h>
-
-#include <zephyr/bluetooth/services/bas.h>
-
 #include <zephyr/logging/log.h>
+
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-#include <zmk/ble.h>
 #include <zmk/event_manager.h>
 #include <zmk/events/ble_active_profile_changed.h>
 
@@ -22,69 +13,61 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #if !DT_NODE_HAS_STATUS(BUZZER_NODE, okay)
 #error "Unsupported board: buzzer devicetree alias is not defined"
-#else
-
 #endif
 
-#define BEEP_DURATION  K_MSEC(60)
+#define BEEP_DURATION K_MSEC(60)
 
 static const struct pwm_dt_spec pwm = PWM_DT_SPEC_GET(BUZZER_NODE);
 
-void _play(uint32_t period)
-{
-	if (!device_is_ready(pwm.dev)) {
-		printk("Error: PWM device %s is not ready\n",
-		       pwm.dev->name);
-		return;
-	}
-    pwm_set_dt(&pwm, period, period / 2U); // attempt at new implementation
-    k_sleep(BEEP_DURATION);
-    pwm_set_dt(&pwm, 0, 0); // attempt at new implementation
-    k_sleep(K_MSEC(50));
+static void play_tone(uint32_t period, k_timeout_t duration) {
+    if (!device_is_ready(pwm.dev)) {
+        LOG_ERR("PWM device %s is not ready", pwm.dev->name);
+        return;
+    }
+    pwm_set_dt(&pwm, period, period / 2U);
+    k_sleep(duration);
+    pwm_set_dt(&pwm, 0, 0);
 }
 
-void play_sound_1()
-{
-    _play(1000000);
-    _play(500000);
-    _play(250000);
-    _play(100000);
-    _play(50000);
+static void play_sound_sequence(const uint32_t *tones, size_t count) {
+    for (size_t i = 0; i < count; i++) {
+        play_tone(tones[i], BEEP_DURATION);
+        k_sleep(K_MSEC(50));
+    }
 }
 
-void play_sound_2()
-{
-    _play(1500000);
-    _play(3900000);
-    _play(1500000);
-    _play(1500000);
+void play_sound_1() {
+    const uint32_t tones[] = {1000000, 500000, 250000, 100000, 50000};
+    play_sound_sequence(tones, ARRAY_SIZE(tones));
 }
 
-void play_sound_3()
-{
-    _play(1500000);
-    _play(3900000);
+void play_sound_2() {
+    const uint32_t tones[] = {1500000, 3900000, 1500000, 1500000};
+    play_sound_sequence(tones, ARRAY_SIZE(tones));
 }
 
-void play_sound_4()
-{
-    _play(2000000);
-    _play(3900000);
+void play_sound_3() {
+    const uint32_t tones[] = {1500000, 3900000};
+    play_sound_sequence(tones, ARRAY_SIZE(tones));
 }
 
-void play_sound_5()
-{
-    _play(2500000);
-    _play(3900000);               
+void play_sound_4() {
+    const uint32_t tones[] = {2000000, 3900000};
+    play_sound_sequence(tones, ARRAY_SIZE(tones));
 }
 
-int buzzer_listener(const zmk_event_t *eh)
-{
-    const struct zmk_ble_active_profile_changed *profile_ev = NULL;
-    if ((profile_ev = as_zmk_ble_active_profile_changed(eh)) == NULL) {
+void play_sound_5() {
+    const uint32_t tones[] = {2500000, 3900000};
+    play_sound_sequence(tones, ARRAY_SIZE(tones));
+}
+
+int buzzer_listener(const zmk_event_t *eh) {
+    const struct zmk_ble_active_profile_changed *profile_ev = as_zmk_ble_active_profile_changed(eh);
+    if (!profile_ev) {
         return ZMK_EV_EVENT_BUBBLE;
     }
-    switch(profile_ev->index) {
+
+    switch (profile_ev->index) {
         case 0:
             play_sound_1();
             break;
@@ -103,6 +86,7 @@ int buzzer_listener(const zmk_event_t *eh)
         default:
             break;
     }
+
     return ZMK_EV_EVENT_BUBBLE;
 }
 
