@@ -14,6 +14,8 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define LED_NODE_G DT_ALIAS(ledgreen)
 #define LED_NODE_B DT_ALIAS(ledblue)
 
+#define LED_TIMEOUT_MS 3000 // Auto-off timeout (3 seconds)
+
 #if !DT_NODE_HAS_STATUS(LED_NODE_R, okay) || !DT_NODE_HAS_STATUS(LED_NODE_G, okay) || !DT_NODE_HAS_STATUS(LED_NODE_B, okay)
 #error "Unsupported board: led devicetree alias is not defined"
 #endif
@@ -53,12 +55,20 @@ void set_led_rgb(bool r, bool g, bool b) {
     }
 }
 
+ void led_work_handler(struct k_work *work) { reset_leds(); }
+ 
+ K_WORK_DEFINE(led_work, led_work_handler);
+ 
+ void led_expiry_function() { k_work_submit(&led_work); }
+ 
+ K_TIMER_DEFINE(led_timer, led_expiry_function, NULL);
+
 int led_listener(const zmk_event_t *eh) {
     const struct zmk_ble_active_profile_changed *profile_ev = as_zmk_ble_active_profile_changed(eh);
     if (!profile_ev) {
         return ZMK_EV_EVENT_BUBBLE;
     }
-
+    k_timer_stop(&led_timer);
     switch (profile_ev->index) {
         case 0:
             set_led_rgb(true, false, false); // Red
@@ -79,7 +89,8 @@ int led_listener(const zmk_event_t *eh) {
             reset_leds();
             break;
     }
-
+     k_timer_start(&led_timer, K_SECONDS(LED_TIMEOUT_MS), K_NO_WAIT);
+ 
     return ZMK_EV_EVENT_BUBBLE;
 }
 
