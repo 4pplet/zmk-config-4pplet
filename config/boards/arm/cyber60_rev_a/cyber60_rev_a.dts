@@ -23,7 +23,6 @@
 
 	vbatt: vbatt {
 		compatible = "zmk,battery-voltage-divider";
-		label = "VBATT";
 		io-channels = <&adc 1>; // P0.03
 		output-ohms = <100000>;
 		full-ohms = <(1000000 + 2000000)>;
@@ -35,15 +34,12 @@
 		compatible = "gpio-leds";
 		led_1: led_red {
 			gpios = <&gpio1 13 GPIO_ACTIVE_LOW>;
-			label = "Red LED";
 		};
 		led_0: led_green {
 			gpios = <&gpio0 28 GPIO_ACTIVE_LOW>;
-			label = "Green LED";
 		};
 		led_2: led_blue { // also broken out on header con307 on cyber60-2 Rev A1 for debug
 			gpios = <&gpio0 5 GPIO_ACTIVE_LOW>;
-			label = "Blue LED";
 		};
 	};
 
@@ -69,8 +65,7 @@
 
 	kscan0: kscan {
 		compatible = "zmk,kscan-gpio-matrix";
-		label = "KSCAN";
-
+		wakeup-source;
 		diode-direction = "col2row";
 		row-gpios
 			= <&gpio0 7  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -106,6 +101,10 @@
 
 &adc {
 	status = "okay";
+};
+
+zephyr_udc0: &usbd {
+    status = "okay";
 };
 
 &usbd {

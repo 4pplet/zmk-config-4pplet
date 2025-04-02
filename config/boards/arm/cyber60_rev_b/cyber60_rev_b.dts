@@ -9,6 +9,7 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <dt-bindings/led/led.h>
 #include "cyber60_rev_b-pinctrl.dtsi"
+#include "cyber60_rev_b-layouts.dtsi"
 / {
 	model = "CYBER60_REV_B";
 	compatible = "cyber60", "Rev_B";
@@ -18,16 +19,13 @@
 		zephyr,sram = &sram0;
 		zephyr,flash = &flash0;
 		zmk,kscan = &kscan0;
-		zmk,matrix_transform = &default_transform;
 		zmk,underglow = &led_strip;
 		zmk,battery = &vbatt;
-		zephyr,console = &cdc_acm_uart;
+		zmk,studio-rpc-uart = &cdc_acm_uart;
 	};
-
 
 	vbatt: vbatt {
 		compatible = "zmk,battery-voltage-divider";
-		label = "VOLTAGE_DIVIDER";
 		io-channels = <&adc 1>; // P0.03
 		output-ohms = <2000000>;
 		full-ohms = <(1000000 + 2000000)>;
@@ -40,7 +38,6 @@
 
 	encoder: encoder_1 {
         compatible = "alps,ec11";
-        label = "ENCODER";
         a-gpios = <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         resolution = <2>;
@@ -49,17 +46,14 @@
 			compatible = "gpio-leds";
 			led_0: led_green {
 				gpios = <&gpio0 28 GPIO_ACTIVE_LOW>;
-				label = "Green LED";
 				status = "okay";
 			};
 			led_1: led_red {
 				gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
-				label = "Red LED";
 				status = "okay";
 			};
 			led_2: led_blue {
 				gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
-				label = "Blue LED";
 				status = "okay";
 			};
 		};
@@ -68,12 +62,11 @@
     buzzer: pwm_buzzer {
         compatible = "pwm-buzzer";
 		pwms = <&pwm0 0 1000 PWM_POLARITY_NORMAL>;
-		label = "PWM BUZZER";
-		status = "okay";
+		//set status = "okay" to enable the buzzer
+		status = "disabled";
+		//status = "okay";
     };
 
-
-	/* These aliases are provided for compatibility with samples */
 	aliases {
 		ledgreen = &led_0;
 		ledred   = &led_1;
@@ -83,7 +76,6 @@
 
 	ext-power {
 		compatible = "zmk,ext-power-generic";
-		label = "EXT_POWER";
 		control-gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
 	};
 
@@ -102,8 +94,7 @@
 	};
 	kscan0: kscan {
 		compatible = "zmk,kscan-gpio-matrix";
-		label = "KSCAN";
-
+		wakeup-source;
 		diode-direction = "col2row";
 		row-gpios
 			= <&gpio0 5  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -129,8 +120,6 @@
 	};
 };
 
-
-
 &gpio0 {
 	status = "okay";
 };
@@ -143,6 +132,10 @@
 	status = "okay";
 };
 
+zephyr_udc0: &usbd {
+    status = "okay";
+};
+
 &usbd {
     status = "okay";
     cdc_acm_uart: cdc_acm_uart {
@@ -150,8 +143,8 @@
         label = "CDC_ACM_0";
     };
 };
+
 &pwm0 {
-	//ch0-pin = <23>; //old imp.
     status = "okay";    
 	pinctrl-0 = <&pwm0_default>;
 	pinctrl-1 = <&pwm0_sleep>;

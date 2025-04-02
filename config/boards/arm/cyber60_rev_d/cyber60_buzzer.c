@@ -11,9 +11,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #define BUZZER_NODE DT_ALIAS(buzzer)
 
-#if !DT_NODE_HAS_STATUS(BUZZER_NODE, okay)
-#error "Unsupported board: buzzer devicetree alias is not defined"
-#endif
+#if DT_NODE_HAS_STATUS(BUZZER_NODE, okay)
 
 #define BEEP_DURATION K_MSEC(60)
 
@@ -93,4 +91,5 @@ int buzzer_listener(const zmk_event_t *eh) {
 ZMK_LISTENER(buzzer_output_status, buzzer_listener)
 #if defined(CONFIG_ZMK_BLE)
     ZMK_SUBSCRIPTION(buzzer_output_status, zmk_ble_active_profile_changed);
+#endif
 #endif
