@@ -1,0 +1,51 @@
+# Copyright (c) 2025 Stefan Sundin (4pplet)
+# SPDX-License-Identifier: MIT
+
+if BOARD_CYBER60
+
+config ZMK_KEYBOARD_NAME
+	default "cyber60"
+
+if USB
+
+config USB_NRFX
+	default y
+
+config USB_DEVICE_STACK
+	default y
+
+config USB_DEVICE_MANUFACTURER
+	default "4pplet"
+
+endif # USB
+
+if BT
+
+config BT_DIS_MANUF
+	default "4pplet"
+
+config BT_DIS_MODEL
+	default "Cyber60"
+
+endif # BT
+
+config BT_CTLR
+	default BT
+
+config ZMK_BLE
+	default y
+
+config ZMK_USB
+	default y
+
+if ZMK_RGB_UNDERGLOW
+
+config ZMK_RGB_UNDERGLOW_HUE_START
+	default 0
+
+config ZMK_RGB_UNDERGLOW_EFF_START
+	default 0
+
+endif # ZMK_RGB_UNDERGLOW
+
+endif # BOARD_CYBER60

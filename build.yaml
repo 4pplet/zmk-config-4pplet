@@ -13,16 +13,16 @@
 #
 ---
 include:
-  - board: cyber60_rev_a
-  - board: cyber60_rev_b
+  - board: cyber60@rev_a
+  - board: cyber60@rev_b
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: cyber60_rev_c
+  - board: cyber60@rev_c
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: cyber60_rev_d
+  - board: cyber60@rev_d
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: cyber60_rev_e
+  - board: cyber60@rev_e
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y

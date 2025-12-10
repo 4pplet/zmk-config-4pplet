@@ -1,0 +1,22 @@
+file_format: "1"
+id: cyber60
+name: Cyber60
+type: board
+arch: arm
+features:
+  - keys
+  - encoder
+  - underglow
+  - battery
+  - studio
+outputs:
+  - usb
+  - ble
+url: https://4pplet.com
+revisions:
+  - rev_a
+  - rev_b
+  - rev_c
+  - rev_d
+  - rev_e
+default_revision: rev_e

@@ -1,0 +1,14 @@
+board:
+  name: cyber60
+  vendor: 4pplet
+  socs:
+    - name: nrf52840
+  revision:
+    format: custom
+    default: rev_e
+    revisions:
+      - name: rev_a
+      - name: rev_b
+      - name: rev_c
+      - name: rev_d
+      - name: rev_e
