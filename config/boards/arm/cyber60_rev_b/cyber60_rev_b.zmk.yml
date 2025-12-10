@@ -1,0 +1,14 @@
+file_format: "1"
+id: cyber60_rev_b
+name: Cyber60 Rev B
+type: board
+arch: arm
+features:
+  - keys
+  - encoder
+  - underglow
+  - studio
+outputs:
+  - usb
+  - ble
+url: https://4pplet.com

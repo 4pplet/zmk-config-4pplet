@@ -40,10 +40,10 @@ void set_led_rgb(bool r, bool g, bool b) {
         gpio_pin_configure_dt(&LED_R, GPIO_OUTPUT_LOW); // Drive LOW = ON
     }
     if (g) {
-        gpio_pin_configure_dt(&LED_R, GPIO_OUTPUT_LOW); // Drive LOW = ON
+        gpio_pin_configure_dt(&LED_G, GPIO_OUTPUT_LOW); // Drive LOW = ON
     }
     if (b) {
-        gpio_pin_configure_dt(&LED_R, GPIO_OUTPUT_LOW); // Drive LOW = ON
+        gpio_pin_configure_dt(&LED_B, GPIO_OUTPUT_LOW); // Drive LOW = ON
     }
 }
 

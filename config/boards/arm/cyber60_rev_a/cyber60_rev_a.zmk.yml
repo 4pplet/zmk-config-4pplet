@@ -1,0 +1,12 @@
+file_format: "1"
+id: cyber60_rev_a
+name: Cyber60 Rev A
+type: board
+arch: arm
+features:
+  - keys
+  - underglow
+outputs:
+  - usb
+  - ble
+url: https://4pplet.com

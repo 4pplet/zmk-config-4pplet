@@ -22,12 +22,13 @@
 	model = "CYBER60_REV_E";
 	compatible = "cyber60", "Rev_E";
 
-	chosen {       
+	chosen {
 		zephyr,code-partition = &code_partition;
 		zephyr,sram = &sram0;
 		zephyr,flash = &flash0;
 		zmk,kscan = &kscan0;
-        zmk,underglow = &led_strip;
+		zmk,physical-layout = &layout_0;
+		zmk,underglow = &led_strip;
 		zmk,battery = &fuelgauge;
 		zmk,studio-rpc-uart = &cdc_acm_uart;
 	};
@@ -114,23 +115,6 @@
 
 &gpio1 {
 	status = "okay";
-};
-
-&pinctrl {
-       i2c0_default: i2c0_default {
-               group1 {
-                       psels = <NRF_PSEL(TWIM_SDA, 0, 5)>,
-                               <NRF_PSEL(TWIM_SCL, 1, 9)>;
-               };
-       };
-
-       i2c0_sleep: i2c0_sleep {
-               group1 {
-                       psels = <NRF_PSEL(TWIM_SDA, 0, 5)>,
-                               <NRF_PSEL(TWIM_SCL, 1, 9)>;
-                       low-power-enable;
-               };
-       };
 };
 
 &i2c0 {
