@@ -15,6 +15,7 @@
 
     chosen {
         zmk,kscan = &kscan0;
+        zmk,physical-layout = &layout_0;
         zmk,underglow = &led_strip;
         zmk,battery = &vbatt;
         zmk,studio-rpc-uart = &cdc_acm_uart;
