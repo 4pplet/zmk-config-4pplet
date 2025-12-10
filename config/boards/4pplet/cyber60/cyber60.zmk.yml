@@ -14,9 +14,9 @@ outputs:
   - ble
 url: https://4pplet.com
 revisions:
-  - rev_a
-  - rev_b
-  - rev_c
-  - rev_d
-  - rev_e
-default_revision: rev_e
+  - A
+  - B
+  - C
+  - D
+  - E
+default_revision: E
